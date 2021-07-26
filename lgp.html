@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <link rel="stylesheet" href="stylee.css">
+  <script src="https:ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+  <!-- bootstrap. -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+  <!-- Fontawsome -->
+  <script src="https://kit.fontawesome.com/ab026326c7.js" crossorigin="anonymous"></script>
+
+  <meta charset="utf-8">
+  <title>Log in</title>
+</head>
+<style>
+  body {
+    background-image: url("https://images.unsplash.com/photo-1514517521153-1be72277b32f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80");
+  }
+</style>
+<div ng-app="myangular" ng-controller="mycontroller">
+  <h2> You Have allredy Account!</h2>
+  <div class="bixbox">
+    <div class="container">
+      <form name="lgpage" novalidate>
+        <input type="text" id="eml" ng-model="emaill" name="emaill" placeholder="Your email address.." required><br><br>
+        <input type="password" id="psdd" ng-model="psd" name="psd" placeholder="Password" required><br><br>
+
+        <button ng-click="login()" type="button" class="btns">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  var app = angular.module("myangular", []);
+  app.controller('mycontroller', function($scope) {
+
+
+    $scope.login = function()
+        {
+          $scope.data = JSON.parse(localStorage.getItem('record'));
+          $scope.len = $scope.data.length
+
+          $scope.checkk = 0;
+          console.log($scope.len)
+          for($scope.i = 0; $scope.i < $scope.len; $scope.i++)
+          {
+            if ($scope.emaill == $scope.data[$scope.i].email) {
+
+              if($scope.psd == $scope.data[$scope.i].password)
+              {
+                alert("Login Successfull");
+                $scope.checkk = 1;
+                $scope.l = $scope.data[$scope.i]
+                console.log($scope.l)
+                localStorage.setItem('loguser', JSON.stringify($scope.l))
+                localStorage.setItem('ind', $scope.i)
+                location.href="prop.html"
+              }
+            }
+
+          }
+          if ($scope.checkk == 0) {
+            alert("Invalid Username or Password")
+          }
+        }
+
+
+
+  });
+</script>
+</body>
+</html>
